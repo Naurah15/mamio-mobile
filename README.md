@@ -132,3 +132,6 @@ Berikut adalah penjelasan implementasi dari setiap langkah dalam membuat aplikas
 
 9. **Melakukan git add, git commit, dan git push ke github** 
    Tahap terakhir adalah melakukan git cadd, git commit, dan git push ke direktori github yang sudah saya buat sebelumnya. langkah ini membantu saya untuk menyimpan hasil dari proyek yang telah saya lakukan ke dalam github.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Tugas 8
