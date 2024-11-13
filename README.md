@@ -112,11 +112,11 @@ TUGAS 7
    7. **Implementasi Pewarnaan Widget ItemCard Berdasarkan Fungsinya**  
     Di dalam kelas ItemCard, metode getBackgroundColor() digunakan untuk menetapkan warna latar belakang setiap tombol sesuai dengan namanya. Fungsi ini mengembalikan warna yang spesifik untuk setiap tombol berdasarkan nama tombol (item.name). Berikut adalah rincian warna untuk setiap tombol:
 
-    1. "Lihat Daftar Produk" diberi warna latar belakang warna merah gelap dengan kode warna Color(0xFF740938). Warna ini menunjukkan bahwa tombol ini memiliki fungsi utama yaitu untuk melihat daftar produk yang tersedia.
+    - "Lihat Daftar Produk" diberi warna latar belakang warna merah gelap dengan kode warna Color(0xFF740938). Warna ini menunjukkan bahwa tombol ini memiliki fungsi utama yaitu untuk melihat daftar produk yang tersedia.
 
-    2. "Tambah Produk" memiliki latar belakang warna merah terang dengan kode warna Color(0xFFAF1740). Warna ini digunakan untuk menandai fungsi penambahan produk baru ke dalam daftar, yang sering kali dianggap sebagai tindakan positif atau konstruktif.
+    - "Tambah Produk" memiliki latar belakang warna merah terang dengan kode warna Color(0xFFAF1740). Warna ini digunakan untuk menandai fungsi penambahan produk baru ke dalam daftar, yang sering kali dianggap sebagai tindakan positif atau konstruktif.
 
-    3. "Logout" diberi warna latar belakang merah paling terang dengan kode warna Color(0xFFCC2B52). Warna ini cenderung lebih menonjol dan memberikan kesan peringatan atau aksi keluar, yang sesuai untuk fungsi keluar dari aplikasi.
+    - "Logout" diberi warna latar belakang merah paling terang dengan kode warna Color(0xFFCC2B52). Warna ini cenderung lebih menonjol dan memberikan kesan peringatan atau aksi keluar, yang sesuai untuk fungsi keluar dari aplikasi.
     
    8. **Mengubah Warna dan Tampilan Background Aplikasi**  
    Pada file `menu.dart`, kita mengubah warna background aplikasi dengan menetapkan `backgroundColor` di dalam `Scaffold` ke warna `Color(0xFFFFECC8)`, yang memberikan tampilan latar belakang yang lembut. Warna header aplikasi juga diubah di `main.dart`, dengan menggunakan properti `colorScheme.primary` di dalam `MaterialApp`, diatur ke warna merah muda tua `Color(0xFFDE7C7D)`. Warna ini memberikan tampilan yang seragam di seluruh aplikasi, termasuk latar belakang dan warna aksen pada header.
