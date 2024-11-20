@@ -197,6 +197,7 @@ TUGAS 8
    
    **Menambahkan Navigasi pada Tombol**  
    Untuk menambahkan navigasi pada tombol, pastikan tombol yang digunakan dibungkus dengan widget seperti `InkWell` agar dapat mendeteksi interaksi pengguna. Di dalam callback `onTap()` atau `onPressed()` dari tombol, tentukan navigasi menggunakan metode `Navigator.pushNamed()` atau metode navigasi lainnya sesuai dengan kebutuhan aplikasi. Pastikan route yang dituju sudah didefinisikan di dalam properti `routes` pada widget `MaterialApp`, sehingga ketika tombol diklik, aplikasi dapat berpindah ke halaman yang sesuai dengan lancar. Navigasi ini memungkinkan pengguna untuk berpindah antarhalaman dalam aplikasi dengan mudah dan terorganisir.
+   
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 TUGAS 9
 

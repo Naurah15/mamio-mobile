@@ -23,7 +23,7 @@ class MyHomePage extends StatelessWidget {
     // Scaffold menyediakan struktur dasar halaman dengan AppBar dan body.
     return Scaffold(
       backgroundColor: const Color(0xFFFFF9BF),
-      // AppBar adalah bagian atas halaman yang menampilkan judul.
+      // AppBar adalah bagian atas halaman yang menampilkan judul halaman.
       appBar: AppBar(
         // Judul aplikasi "Mental Health Tracker" dengan teks putih dan tebal.
         title: const Text(

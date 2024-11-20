@@ -23,10 +23,10 @@ class MyApp extends StatelessWidget {
         title: 'MAMIO',
         theme: ThemeData(
           useMaterial3: true,
-          primaryColor: Color.fromARGB(255, 116, 9, 56), // Warna utama disesuaikan
+          primaryColor: Color.fromARGB(255, 116, 9, 56), // Menyesuaikan warna utama
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: Color.fromARGB(255, 175, 23, 64), // Warna utama disesuaikan
-            secondary: Color.fromARGB(255, 204, 43, 82), // Warna sekunder disesuaikan
+            primary: Color.fromARGB(255, 175, 23, 64), // Menyesuaikan warna utama
+            secondary: Color.fromARGB(255, 204, 43, 82), // Menyesuaikan warna sekunder
           ),
         ),
         home: const LoginPage(),

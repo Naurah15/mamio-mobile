@@ -59,10 +59,6 @@ class LeftDrawer extends StatelessWidget {
             title: const Text('Tambah Item'),
             // Bagian redirection ke ItemEntryFormPage
             onTap: () {
-              /*
-              Buatlah routing ke ItemEntryFormPage di sini,
-              setelah halaman ItemEntryFormPage sudah dibuat.
-              */
               Navigator.pop(context); // Menutup drawer
               Navigator.push(
                 context,

@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(16.0),
           child: Card(
             elevation: 8,
-            color: Color(0xFFF1D0D6), // Soft pink color for the card background
+            color: Color(0xFFF1D0D6),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
             ),

@@ -27,7 +27,7 @@ class ItemCard extends StatelessWidget {
       
       child: InkWell(
         onTap: () async {
-          // Menampilkan pesan SnackBar saat kartu ditekan
+          // Menampilkan pesan SnackBar pada saat kartu ditekan
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
