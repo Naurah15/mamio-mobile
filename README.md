@@ -197,3 +197,140 @@ TUGAS 8
    
    **Menambahkan Navigasi pada Tombol**  
    Untuk menambahkan navigasi pada tombol, pastikan tombol yang digunakan dibungkus dengan widget seperti `InkWell` agar dapat mendeteksi interaksi pengguna. Di dalam callback `onTap()` atau `onPressed()` dari tombol, tentukan navigasi menggunakan metode `Navigator.pushNamed()` atau metode navigasi lainnya sesuai dengan kebutuhan aplikasi. Pastikan route yang dituju sudah didefinisikan di dalam properti `routes` pada widget `MaterialApp`, sehingga ketika tombol diklik, aplikasi dapat berpindah ke halaman yang sesuai dengan lancar. Navigasi ini memungkinkan pengguna untuk berpindah antarhalaman dalam aplikasi dengan mudah dan terorganisir.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TUGAS 9
+
+1) Jelaskan mengapa kita perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika kita tidak membuat model terlebih dahulu
+   Jawab:
+   Membuat model untuk pengambilan atau pengiriman data JSON sangat penting karena model berfungsi sebagai struktur yang mendefinisikan format dan tipe data yang kita terima atau kirim dari server. Dengan menggunakan model, kita dapat memetakan data JSON yang kompleks menjadi objek yang dapat dengan mudah diakses dan diproses dalam kode. Model memastikan bahwa data yang diterima atau dikirim sesuai dengan struktur yang diharapkan, memudahkan manipulasi data, serta mengurangi potensi kesalahan saat mengakses properti atau mengonversi tipe data. 
+   
+   Tanpa model, kita harus secara manual mengurai dan memetakan setiap bagian dari JSON yang diterima, yang meningkatkan kemungkinan kesalahan seperti kesalahan penamaan, tipe data yang tidak sesuai, atau data yang hilang. Selain itu, tanpa model, proses pengolahan data bisa menjadi lebih sulit, terutama jika data tersebut besar dan kompleks. Dalam praktiknya, jika kita tidak membuat model terlebih dahulu, bisa terjadi error seperti `null` atau `type mismatch` ketika mencoba mengakses data yang tidak terstruktur dengan jelas. Oleh karena itu, pembuatan model sangat membantu untuk menjaga integritas dan kestabilan aplikasi kita.
+
+2) Jelaskan fungsi dari library http yang sudah kamu implementasikan pada tugas ini
+   Jawab:
+   Pada tugas 9, library `http` digunakan untuk melakukan komunikasi antara aplikasi Flutter dan web service melalui HTTP requests. Fungsi utama dari library ini adalah memungkinkan aplikasi untuk mengirim dan menerima data dalam format JSON, yang sering digunakan untuk bertukar informasi antara aplikasi dan server. Dalam tugas ini, `http` digunakan untuk mengirimkan data melalui metode `POST` saat registrasi atau login, serta untuk mengambil data dari server menggunakan metode `GET`. Selain itu, library ini bekerja bersama dengan `dart:convert` untuk mengonversi data JSON yang diterima dari server menjadi objek Dart yang dapat diproses lebih lanjut. Sebaliknya, saat mengirim data ke server, data Dart dikonversi menjadi format JSON menggunakan `jsonEncode()`. Secara keseluruhan, fungsi dari library `http` pada tugas 9 adalah untuk menangani komunikasi HTTP, memungkinkan aplikasi Flutter untuk mengakses dan mengirimkan data ke web service, serta mengelola respons yang diterima untuk ditampilkan di antarmuka pengguna atau memberikan pesan status kepada pengguna.
+
+3) Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+   Jawab:
+   Pada tugas 9, `CookieRequest` berfungsi sebagai kelas yang digunakan untuk mengelola permintaan HTTP yang melibatkan cookie, seperti autentikasi dan sesi pengguna. Ketika aplikasi Flutter berkomunikasi dengan web service, terutama untuk keperluan login dan pengambilan data yang memerlukan autentikasi, cookie sering digunakan untuk menyimpan informasi sesi pengguna. Cookie ini digunakan agar pengguna tidak perlu melakukan login berulang kali selama sesi masih valid.
+   
+   Instance dari `CookieRequest` perlu dibagikan ke semua komponen di aplikasi Flutter karena aplikasi mungkin membutuhkan akses ke sesi pengguna pada berbagai bagian aplikasi. Dengan membagikan instance ini menggunakan `Provider`, kita memastikan bahwa semua widget yang membutuhkan akses ke sesi atau data autentikasi dapat dengan mudah mengaksesnya tanpa harus membuat instance baru setiap kali. Hal ini juga membantu mengelola status login pengguna secara global di seluruh aplikasi, sehingga memudahkan untuk menangani hal-hal seperti pengalihan ke halaman utama setelah login berhasil atau mengelola status logout.
+   
+   Dengan membagikan `CookieRequest` ke seluruh aplikasi, kita memastikan konsistensi dan efisiensi dalam penggunaan data sesi dan autentikasi di seluruh aplikasi tanpa memerlukan replikasi kode atau memanipulasi ulang status autentikasi setiap kali dibutuhkan.
+
+4) Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter.
+   Jawab: 
+   Pada tugas 9, mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter melibatkan beberapa tahapan, yang mencakup pengumpulan data dari pengguna, pengiriman data ke web service (backend), pemrosesan respons dari server, dan akhirnya menampilkan data tersebut pada aplikasi Flutter. Berikut adalah tahapan secara rinci:
+
+   a. **Pengumpulan Data dari Pengguna:**
+      Data pertama kali dikumpulkan dari pengguna melalui form input pada aplikasi Flutter. Misalnya, dalam kasus login atau pengisian form, pengguna akan mengisi kolom seperti username, password, atau informasi lain yang dibutuhkan. Data ini biasanya diambil menggunakan `TextEditingController` pada widget `TextFormField` yang memungkinkan untuk mengambil nilai input pengguna.
+
+   b. **Pengiriman Data ke Web Service:**
+      Setelah data dikumpulkan, data tersebut dikirim ke backend (misalnya, Django) menggunakan HTTP request. Biasanya, pengiriman ini dilakukan dengan menggunakan metode `POST` yang mengirimkan data dalam bentuk JSON. Di aplikasi Flutter, kita menggunakan library `http` atau `pbp_django_auth` untuk melakukan HTTP request. Dalam hal ini, kita memanfaatkan `CookieRequest` untuk mengirim data bersama dengan cookie untuk autentikasi. Misalnya, pada form login, data seperti username dan password akan dikirim ke server menggunakan request seperti ini:
+      dart
+      final response = await request.postJson("http://127.0.0.1:8000/auth/login/", jsonEncode({
+      'username': username,
+      'password': password,
+      }));
+
+   c. **Pemrosesan Respons dari Server:**
+      Setelah data dikirim ke server, server akan memproses permintaan dan mengembalikan respons berupa data atau status. Respons ini biasanya dikirim dalam format JSON yang berisi informasi mengenai status operasi (misalnya, login berhasil atau gagal), pesan, atau data lain yang relevan. Di sisi Flutter, respons ini kemudian diproses, dan data yang relevan diambil untuk digunakan dalam aplikasi.
+
+   d. **Menampilkan Data pada Flutter:**
+      Setelah respons diterima, data dapat diproses dan ditampilkan pada antarmuka pengguna Flutter. Jika respons berisi data yang perlu ditampilkan, seperti daftar item atau detail pengguna, data tersebut akan dikonversi ke dalam objek model (misalnya menggunakan fungsi `fromJson`). Setelah itu, data yang telah diproses dapat ditampilkan menggunakan widget seperti `ListView`, `Text`, atau widget lainnya. Misalnya, data yang diterima dari web service bisa dimasukkan ke dalam widget `ListView.builder` untuk menampilkan daftar item secara dinamis.
+
+      Sebagai contoh, setelah mendapatkan respons login yang berisi pesan sukses atau gagal, aplikasi dapat menampilkan pesan tersebut dengan menggunakan `SnackBar` atau langsung mengalihkan pengguna ke halaman utama jika login berhasil.
+
+      Secara keseluruhan, proses ini menghubungkan antarmuka pengguna dengan backend, memastikan data yang dimasukkan oleh pengguna dikirim dengan benar ke server dan respons yang diterima ditampilkan dengan tepat pada aplikasi.
+
+5) Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+   Jawab: 
+   Pada tugas 9, mekanisme autentikasi yang melibatkan login, register, dan logout dimulai dari pengumpulan data akun pada aplikasi Flutter, pengirimannya ke server Django untuk diproses, dan akhirnya menampilkan hasil autentikasi kembali ke Flutter. Berikut adalah penjelasan rinci tentang alur mekanisme autentikasi dari login, register, hingga logout:
+
+   a. Proses Register (Pendaftaran Akun):
+   Pengguna mengisi form pendaftaran pada aplikasi Flutter dengan data seperti username, password, dan konfirmasi password.
+   Setelah data dimasukkan, aplikasi Flutter mengirimkan data tersebut ke server Django melalui request HTTP.
+   Server Django memvalidasi data yang diterima, seperti memastikan password yang dimasukkan sesuai dan username yang dipilih belum terpakai.
+   Jika data valid, server akan membuat akun baru dan mengirimkan respons ke Flutter yang mengonfirmasi bahwa pendaftaran berhasil.
+   Aplikasi Flutter menampilkan pesan sukses dan dapat mengarahkan pengguna ke halaman login untuk melanjutkan proses autentikasi.
+
+   b. Proses Login:
+   Pengguna memasukkan username dan password di halaman login Flutter.
+   Data login dikirim ke server Django melalui request HTTP.
+   Server Django memverifikasi kecocokan username dan password yang diterima dengan data yang ada di database. Jika valid, server akan melakukan login pengguna dan mengembalikan respons yang menyatakan login berhasil.
+   Aplikasi Flutter menerima respons sukses, menyimpan status login, dan mengarahkan pengguna ke halaman utama aplikasi, di mana menu atau konten yang sesuai ditampilkan.
+
+   c. Proses Logout:
+   Ketika pengguna memilih opsi logout, aplikasi Flutter mengirimkan permintaan logout ke server Django.
+   Server Django memproses permintaan tersebut dengan menghapus sesi pengguna, sehingga pengguna tidak lagi terautentikasi.
+   Setelah logout berhasil, server mengirimkan respons sukses, dan aplikasi Flutter menampilkan pesan logout yang berhasil, lalu mengarahkan pengguna kembali ke halaman login.
+
+   d. Peran CookieRequest:
+   CookieRequest berfungsi untuk menyimpan informasi sesi yang diperlukan selama proses login dan logout. Dengan menyimpan cookie atau token sesi, setiap permintaan HTTP yang dilakukan oleh aplikasi Flutter ke server Django akan membawa informasi autentikasi yang diperlukan untuk memastikan pengguna sudah terlogin.
+   CookieRequest perlu dibagikan ke seluruh aplikasi menggunakan Provider agar semua komponen di aplikasi dapat mengakses dan menggunakan informasi sesi ini saat membuat permintaan ke server.
+
+   Secara keseluruhan, proses autentikasi ini menghubungkan aplikasi Flutter dengan server Django, memastikan bahwa pengguna dapat mendaftar, login, dan logout dengan aman, serta mendapatkan akses ke fitur aplikasi yang sesuai berdasarkan status autentikasi mereka.
+
+6) Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
+   Jawab:
+   Untuk mengimplementasikan checklist yang diberikan, berikut adalah langkah-langkah yang saya lakukan secara rinci untuk masing-masing tugas:
+
+   ### 1. **Memastikan Deployment Proyek Tugas Django Berjalan dengan Baik**
+      - **Langkah-langkah**:
+      - Pertama, saya memastikan bahwa server Django telah berjalan dengan baik di localhost dengan menggunakan `python manage.py runserver`.
+      - Saya memeriksa API endpoint pada browser atau menggunakan tools seperti Postman untuk memastikan bahwa server Django merespons permintaan dengan benar.
+      - Untuk deployment, saya menggunakan platform seperti Heroku atau platform lain yang mendukung Django deployment. Saya mengonfigurasi `ALLOWED_HOSTS`, menambahkan konfigurasi CORS, dan memastikan bahwa database dan aplikasi sudah terhubung dengan benar.
+      - Saya melakukan testing API di browser untuk memastikan bahwa data dapat diambil dan dikirim dengan benar dari server Django.
+
+   ### 2. **Mengimplementasikan Fitur Registrasi Akun pada Proyek Tugas Flutter**
+      - **Langkah-langkah**:
+      - Saya membuat form registrasi dengan `TextFormField` di Flutter untuk menginput data seperti `username`, `password`, dan `confirm password`.
+      - Saya mengonfigurasi `onPressed` pada tombol registrasi untuk mengirim data ke server Django melalui API menggunakan `http` request.
+      - Setelah data diterima oleh server, server memverifikasi apakah username sudah ada dan apakah password sesuai. Jika berhasil, saya menampilkan pesan sukses di aplikasi Flutter.
+      - Saya juga menangani kasus error seperti password yang tidak cocok atau username yang sudah terdaftar dengan menampilkan pesan error yang sesuai.
+
+   ### 3. **Membuat Halaman Login pada Proyek Tugas Flutter**
+      - **Langkah-langkah**:
+      - Halaman login juga menggunakan `TextFormField` untuk input `username` dan `password`.
+      - Sama seperti registrasi, data yang dimasukkan dikirim ke server Django menggunakan `http` request untuk memverifikasi kredensial.
+      - Setelah login berhasil, saya menyimpan status login di Flutter menggunakan `Provider` atau `SharedPreferences` agar pengguna tetap terautentikasi saat aplikasi digunakan kembali.
+      - Halaman ini juga menangani kesalahan seperti password atau username yang tidak cocok dengan memberikan pesan error di Flutter.
+
+   ### 4. **Mengintegrasikan Sistem Autentikasi Django dengan Proyek Tugas Flutter**
+      - **Langkah-langkah**:
+      - Saya mengimpor `pbp_django_auth` untuk memudahkan integrasi autentikasi antara Django dan Flutter.
+      - Di Flutter, saya menggunakan `CookieRequest` untuk menyimpan cookie atau token autentikasi setelah pengguna berhasil login. Setiap request berikutnya akan mengirimkan cookie ini untuk memastikan bahwa pengguna tetap terautentikasi.
+      - Untuk setiap halaman yang memerlukan autentikasi, saya memastikan bahwa pengguna hanya dapat mengaksesnya jika mereka sudah login dengan memeriksa status login melalui `Provider` atau `CookieRequest`.
+
+   ### 5. **Membuat Model Kustom Sesuai dengan Proyek Aplikasi Django**
+      - **Langkah-langkah**:
+      - Di Django, saya membuat model untuk item yang berisi informasi seperti `name`, `price`, `description`, dan atribut lainnya.
+      - Di Flutter, saya membuat model dengan nama yang sesuai (misalnya `ItemEntry`) yang mencerminkan struktur data yang dikirimkan oleh server Django.
+      - Saya menggunakan `fromJson` dan `toJson` di Flutter untuk mengonversi data JSON dari API ke dalam objek Dart yang sesuai dan sebaliknya.
+
+   ### 6. **Membuat Halaman Daftar Semua Item dari Endpoint JSON di Django**
+      - **Langkah-langkah**:
+      - Di Flutter, saya menggunakan `FutureBuilder` untuk menampilkan data yang diambil dari server Django menggunakan API.
+      - Saya memanggil API untuk mengambil data item dengan menggunakan `http.get` dan kemudian mengonversi respons JSON ke dalam model `ItemEntry` yang sudah dibuat.
+      - Setiap item ditampilkan dengan atribut `name`, `price`, dan `description` pada halaman daftar.
+
+   ### 7. **Membuat Halaman Detail untuk Setiap Item pada Halaman Daftar Item**
+      - **Langkah-langkah**:
+      - Ketika item pada halaman daftar ditekan, saya mengarahkan pengguna ke halaman detail menggunakan `Navigator.push()`.
+      - Di halaman detail, saya menampilkan semua atribut item yang lebih lengkap seperti `name`, `price`, `stock`, `category`, `description`, `rating`, dan `discount`
+      - Saya juga menambahkan tombol untuk kembali ke halaman daftar item dengan menggunakan `Navigator.pop()`.
+
+   ### 8. **Menambahkan Filter pada Halaman Daftar Item untuk Menampilkan Item yang Terasosiasi dengan Pengguna yang Login**
+      - **Langkah-langkah**:
+      - Pada halaman daftar item, saya memastikan bahwa hanya item yang dimiliki oleh pengguna yang login yang dapat ditampilkan.
+      - Di server Django, saya menambahkan logika untuk hanya mengirimkan item yang terkait dengan pengguna tertentu, misalnya menggunakan filter berdasarkan `user` yang sedang login.
+      - Di Flutter, saya menambahkan logika untuk menampilkan hanya item yang terkait dengan pengguna yang login.
+
+   ### 9. **Menjawab Pertanyaan dan Melakukan Add-Commit-Push ke GitHub**
+      - **Langkah-langkah**:
+      - Saya menjawab semua pertanyaan di README.md dengan menjelaskan implementasi dari setiap langkah yang saya lakukan di atas.
+      - Setelah semua tugas selesai, saya melakukan `git add .`, `git commit -m "<pesan_commit>"`, dan `git push -u origin <branch_utama>` untuk memperbarui repositori GitHub saya.
+
+   ### Kesimpulan:
+   Setiap langkah pada checklist ini diimplementasikan dengan hati-hati, mulai dari membuat form di Flutter, melakukan request HTTP ke Django, hingga menampilkan data yang diambil dari API di aplikasi Flutter. Semua proses ini dipandu dengan referensi dan tutorial yang tersedia, namun saya juga memastikan untuk memodifikasi dan menyesuaikan sesuai kebutuhan spesifik proyek saya.
+

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mamio/screens/list_itementry.dart';
 import 'package:mamio/screens/menu.dart';
 // Impor halaman ItemEntryFormPage jika sudah dibuat
 import 'package:mamio/screens/itementry_form.dart';
@@ -71,6 +72,17 @@ class LeftDrawer extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.local_attraction_outlined),
+            title: const Text('Daftar Item'),
+            onTap: () {
+                // Route menu ke halaman mood
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ItemEntryPage()),
+                );
+            },
+        ),
         ],
       ),
     );
