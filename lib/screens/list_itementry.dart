@@ -3,6 +3,7 @@ import 'package:mamio/models/item_entry.dart';
 import 'package:mamio/widgets/left_drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:mamio/screens/item_detail_page.dart';  // Import halaman detail
 
 class ItemEntryPage extends StatefulWidget {
   const ItemEntryPage({super.key});
@@ -32,11 +33,11 @@ class _ItemEntryPageState extends State<ItemEntryPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF9BF),  // Set background color to the provided color
+      backgroundColor: const Color(0xFFFFF9BF),
       appBar: AppBar(
         title: const Text('Item Entry List'),
-        backgroundColor: const Color.fromARGB(255, 162, 2, 90),  // Set AppBar background color to the provided color
-        foregroundColor: Colors.white,  // Set text color in AppBar to white
+        backgroundColor: const Color.fromARGB(255, 162, 2, 90),
+        foregroundColor: Colors.white,
       ),
       drawer: const LeftDrawer(),
       body: FutureBuilder(
@@ -59,18 +60,28 @@ class _ItemEntryPageState extends State<ItemEntryPage> {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (_, index) => Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "${snapshot.data![index].fields.name}",
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+                      GestureDetector(
+                        onTap: () {
+                          // Navigasi ke halaman detail item
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ItemDetailPage(item: snapshot.data![index]),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "${snapshot.data![index].fields.name}",
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 10),
